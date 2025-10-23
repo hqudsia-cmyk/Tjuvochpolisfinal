@@ -63,23 +63,70 @@ namespace Tjuvochpolisfinal
             Console.ReadKey(true);
         }
 
+        /* internal static void DrawPerson(Person person)
+         {
+             int x = Math.Max(0, Math.Min(Console.WindowWidth - 1, person.Position.X));
+             int y = Math.Max(0, Math.Min(Console.WindowHeight - 1, person.Position.Y));
+             Console.SetCursorPosition(x, y);
+
+             // choose color
+             if (person is Police)
+                 Console.ForegroundColor = ConsoleColor.Blue;
+             else if (person is Thief && person.Symbol == 'T')
+                 Console.ForegroundColor = ConsoleColor.Red;
+             else if (person is Thief && person.Symbol == 'F')
+                 Console.ForegroundColor = ConsoleColor.DarkRed;
+             else if (person is Citizen)
+                 Console.ForegroundColor = ConsoleColor.Green;
+             else
+                 Console.ForegroundColor = ConsoleColor.White;
+
+             Console.Write(person.Symbol);
+             Console.ResetColor();
+         }
+        */
+
+
+        internal static void ClearCityArea(int width, int height)
+        {
+            for (int y = 1; y < height - 1; y++)
+            {
+                for (int x = 1; x < width - 1; x++)
+                {
+                    Console.SetCursorPosition(x, y);
+                    Console.Write(" ");
+                }
+            }
+        }
+
+        internal static void RedrawPeople(List<Person> people)
+        {
+            foreach (var p in people)
+            {
+                DrawPerson(p);
+            }
+        }
+
         internal static void DrawPerson(Person person)
         {
-            int x = Math.Max(0, Math.Min(Console.WindowWidth - 1, person.Position.X));
-            int y = Math.Max(0, Math.Min(Console.WindowHeight - 1, person.Position.Y));
-            Console.SetCursorPosition(x, y);
+            Console.SetCursorPosition(person.Position.X, person.Position.Y);
 
-            // choose color
-            if (person is Police)
-                Console.ForegroundColor = ConsoleColor.Blue;
-            else if (person is Thief && person.Symbol == 'T')
-                Console.ForegroundColor = ConsoleColor.Red;
-            else if (person is Thief && person.Symbol == 'F')
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-            else if (person is Citizen)
-                Console.ForegroundColor = ConsoleColor.Green;
-            else
-                Console.ForegroundColor = ConsoleColor.White;
+            // Färger på people
+            switch (person)
+            {
+                case Police:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case Thief t when t.Symbol == 'F':
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    break;
+                case Thief:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case Citizen:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+            }
 
             Console.Write(person.Symbol);
             Console.ResetColor();
