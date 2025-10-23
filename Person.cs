@@ -43,14 +43,8 @@ namespace Tjuvochpolisfinal
             Symbol = symbol;
             Inventory = inventory;
         }
-        public void Move()
-        {
-            Position = new Position(Position.X + Direction.X, Position.Y + Direction.Y);
-        }
-        public void ChangeDirection()
-        {
-            Direction = Direction.RandomDirection();
-        }
+       
+       
     }
     internal class Police : Person
     {
