@@ -84,7 +84,6 @@ namespace Tjuvochpolisfinal
             Console.Write(person.Symbol);
             Console.ResetColor();
         }
-
     }
 } 
     
