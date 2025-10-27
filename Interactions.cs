@@ -10,7 +10,7 @@ namespace Tjuvochpolisfinal
     {
         private static Random rand = new Random();
 
-        public static void CitizenGreetings(Citizen citizen, Police police, List<Person> people, int width, int height, List<string> newsFeed)
+        internal static void CitizenGreetings(Citizen citizen, Police police, List<Person> people, int width, int height, List<string> newsFeed)
         {
             Display.DrawPerson(police);
             Display.DrawPerson(citizen);
@@ -24,7 +24,7 @@ namespace Tjuvochpolisfinal
             Thread.Sleep(1000); 
         }
 
-        public static void HandleRobbery(Thief thief, Citizen citizen, List<Person> people, int width, int height, List<string> newsFeed)
+        internal static void HandleRobbery(Thief thief, Citizen citizen, List<Person> people, int width, int height, List<string> newsFeed)
         {
 
             Display.ClearCityArea(width, height);
@@ -42,7 +42,7 @@ namespace Tjuvochpolisfinal
         }
 
 
-        public static void HandleArrest(Police police, Thief thief, List<Person> people,
+        internal static void HandleArrest(Police police, Thief thief, List<Person> people,
         int width, int height, int prisonStartX, int prisonStartY, int prisonWidth, int prisonHeight, List<string> newsFeed)
         {
             Display.ClearCityArea(width, height);

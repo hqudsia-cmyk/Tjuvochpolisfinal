@@ -8,21 +8,21 @@ namespace Tjuvochpolisfinal
 {
     internal struct Position
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public Position(int x, int y) { X = x; Y = y; }
+        internal int X { get; set; }
+        internal int Y { get; set; }
+        internal Position(int x, int y) { X = x; Y = y; }
     }
 
     internal struct Direction
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        internal int X { get; set; }
+        internal int Y { get; set; }
 
         private static Random rand = new Random();
 
-        public Direction(int x, int y) { X = x; Y = y; }
+        internal Direction(int x, int y) { X = x; Y = y; }
 
-        public static Direction RandomDirection()
+        internal static Direction RandomDirection()
         {
             return new Direction(rand.Next(-1, 2), rand.Next(-1, 2));
         }
@@ -37,7 +37,7 @@ namespace Tjuvochpolisfinal
         public DateTime? ReleaseTime { get; set; }
 
 
-        public Person(string name, Position position, Direction direction, char symbol, Inventory inventory)
+        internal Person(string name, Position position, Direction direction, char symbol, Inventory inventory)
         {
             Name = name;
             Position = position;
@@ -45,11 +45,11 @@ namespace Tjuvochpolisfinal
             Symbol = symbol;
             Inventory = inventory;
         }
-        public void Move()
+        internal void Move()
         {
             Position = new Position(Position.X + Direction.X, Position.Y + Direction.Y);
         }
-        public void MoveInPrison(int prisonStartX, int prisonStartY, int prisonWidth, int prisonHeight)
+        internal void MoveInPrison(int prisonStartX, int prisonStartY, int prisonWidth, int prisonHeight)
         {
             if (ReleaseTime.HasValue && DateTime.Now >= ReleaseTime.Value)                                         
             {
@@ -84,7 +84,7 @@ namespace Tjuvochpolisfinal
 
             Position = new Position(newX, newY);
         }
-        public void ChangeDirection()
+        internal void ChangeDirection()
         {
             Direction = Direction.RandomDirection();
         }

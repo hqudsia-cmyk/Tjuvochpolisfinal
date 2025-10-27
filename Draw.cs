@@ -9,8 +9,8 @@ namespace Tjuvochpolisfinal
     internal class Draw
     {
       // Rita upp staden
-      public  static void DrawBorder(int width, int height)
-        {
+      internal static void DrawBorder(int width, int height)
+      {
             Console.Clear();
             for (int y = 0; y < height; y++)
             {
@@ -29,7 +29,7 @@ namespace Tjuvochpolisfinal
             Console.SetCursorPosition(0, 25);
             Console.Write("News Feed ============================");
         }
-       public static void DrawPrisonBorder(int prisonWidth, int prisonHeight, int startY, int startX)
+       internal static void DrawPrisonBorder(int prisonWidth, int prisonHeight, int startY, int startX)
        {
             for (int y = 0; y < prisonHeight; y++)
             {

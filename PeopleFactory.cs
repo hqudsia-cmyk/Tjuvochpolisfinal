@@ -10,7 +10,7 @@ namespace Tjuvochpolisfinal
     {
         private static Random rand = new Random();
 
-        public static List<Person> CreatePeople(int width, int height)
+        internal static List<Person> CreatePeople(int width, int height)
         {
             var people = new List<Person>();
 
