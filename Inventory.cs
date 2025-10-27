@@ -8,7 +8,6 @@ namespace Tjuvochpolisfinal
 {
     internal class Inventory
     {
-         
         public List<string> Items { get; set; }
         public Inventory(List<string> items) { Items = items; }
     }
@@ -25,7 +24,7 @@ namespace Tjuvochpolisfinal
 
     internal class CitizenInventory : Inventory
     {
-        public CitizenInventory() : base(new List<string> { "Nyckel", "Plånbok", "Mobil", "Pengar" }) { }
+        public CitizenInventory() : base(new List<string> { "Nyckel", "Klocka", "Mobil", "Pengar" }) { }
     }
 }
 

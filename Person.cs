@@ -34,8 +34,7 @@ namespace Tjuvochpolisfinal
         public Direction Direction { get; set; }
         public char Symbol { get; set; }
         public Inventory Inventory { get; set; }
-        public int PrisonTime { get; set; } = 0;
-        public int PrisonCounter { get; set; } = 0;
+        public DateTime? ReleaseTime { get; set; }
 
 
         public Person(string name, Position position, Direction direction, char symbol, Inventory inventory)
@@ -52,22 +51,21 @@ namespace Tjuvochpolisfinal
         }
         public void MoveInPrison(int prisonStartX, int prisonStartY, int prisonWidth, int prisonHeight)
         {
-            PrisonCounter++;
-
-            if (PrisonCounter >= PrisonTime)
+            if (ReleaseTime.HasValue && DateTime.Now >= ReleaseTime.Value)                                         
             {
                 Symbol = 'T';
-                PrisonTime = 0;
-                PrisonCounter = 0;
+             
+                ReleaseTime = null;
+
                 Position = new Position(new Random().Next(1, 98), new Random().Next(1, 23));
                 return;
             }
+
             if (new Random().Next(10) == 0)
                 ChangeDirection();
 
             int newX = Position.X + Direction.X;
             int newY = Position.Y + Direction.Y;
-
 
             // Vänd riktning om vi träffar fängelsevägg
             if (newX <= prisonStartX + 1 || newX >= prisonStartX + prisonWidth - 2)
@@ -90,7 +88,6 @@ namespace Tjuvochpolisfinal
         {
             Direction = Direction.RandomDirection();
         }
-
     }
     internal class Police : Person
     {
@@ -100,11 +97,8 @@ namespace Tjuvochpolisfinal
 
     internal class Thief : Person
     {
-
         public Thief(string name, Position position)
             : base(name, position, Direction.RandomDirection(), 'T', new ThiefInventory()) { }
-
-
     }
 
     internal class Citizen : Person

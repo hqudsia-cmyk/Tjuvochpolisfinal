@@ -10,7 +10,6 @@ namespace Tjuvochpolisfinal
     {
         internal static void DisplayResult(List<Person> people, List<string> newsFeed)
         {
-
             Console.Clear();
             Console.WriteLine("======== SLUTRESULTAT =======");
 
@@ -43,8 +42,8 @@ namespace Tjuvochpolisfinal
                 Console.WriteLine($"Person {personIndex++}: {type} - {person.Name}");
                 Console.WriteLine($"Position: ({person.Position.X}, {person.Position.Y})");
                 Console.WriteLine($"Inventory: {string.Join(", ", person.Inventory.Items)}");
-
             }
+
             Console.WriteLine("==== Alla Händelser ====");
             if (newsFeed.Count == 0)
             {
@@ -62,30 +61,6 @@ namespace Tjuvochpolisfinal
             Console.WriteLine("\nTryck på valfri tangent för att avsluta...");
             Console.ReadKey(true);
         }
-
-        /* internal static void DrawPerson(Person person)
-         {
-             int x = Math.Max(0, Math.Min(Console.WindowWidth - 1, person.Position.X));
-             int y = Math.Max(0, Math.Min(Console.WindowHeight - 1, person.Position.Y));
-             Console.SetCursorPosition(x, y);
-
-             // choose color
-             if (person is Police)
-                 Console.ForegroundColor = ConsoleColor.Blue;
-             else if (person is Thief && person.Symbol == 'T')
-                 Console.ForegroundColor = ConsoleColor.Red;
-             else if (person is Thief && person.Symbol == 'F')
-                 Console.ForegroundColor = ConsoleColor.DarkRed;
-             else if (person is Citizen)
-                 Console.ForegroundColor = ConsoleColor.Green;
-             else
-                 Console.ForegroundColor = ConsoleColor.White;
-
-             Console.Write(person.Symbol);
-             Console.ResetColor();
-         }
-        */
-
 
         internal static void ClearCityArea(int width, int height)
         {

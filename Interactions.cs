@@ -22,7 +22,6 @@ namespace Tjuvochpolisfinal
 
             Display.RedrawPeople(people);
             Thread.Sleep(1000); 
-
         }
 
         public static void HandleRobbery(Thief thief, Citizen citizen, List<Person> people, int width, int height, List<string> newsFeed)
@@ -80,6 +79,7 @@ namespace Tjuvochpolisfinal
             if (thief.Inventory.Items.Count == 0) return;
 
             double chance = 0.7;
+
             if (rand.NextDouble() < chance)
             {
 
@@ -90,8 +90,9 @@ namespace Tjuvochpolisfinal
                 thief.Inventory.Items.Clear();
 
                 // Straff baserat på hur mycket tjuven stulit
-                thief.PrisonTime = stolenCount * 50;
-                thief.PrisonCounter = 0;
+                int prisonSeconds = stolenCount * 10; // varje stöld ger 10 sekunder
+                thief.ReleaseTime = DateTime.Now.AddSeconds(prisonSeconds);
+                
 
                 // Flytta tjuven till fängelset
                 int prisonX = prisonStartX + rand.Next(1, prisonWidth - 2);
@@ -100,7 +101,8 @@ namespace Tjuvochpolisfinal
                 thief.Symbol = 'F'; // Markera tjuv som fånge
 
                 newsFeed.Add($"Polisen {police.Name} grep {thief.Name} för {stolenCount} stölder!");
-                newsFeed.Add($"Tjuven sitter i fängelse i {stolenCount} min (= {thief.PrisonTime} frames).");
+             
+                newsFeed.Add($"Tjuven sitter i fängelse i {prisonSeconds} sekunder.");
 
                 if (newsFeed.Count > 10)
                     newsFeed.RemoveAt(0);

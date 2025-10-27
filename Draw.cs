@@ -8,7 +8,7 @@ namespace Tjuvochpolisfinal
 {
     internal class Draw
     {
-        // Rita upp staden
+      // Rita upp staden
       public  static void DrawBorder(int width, int height)
         {
             Console.Clear();
@@ -30,7 +30,7 @@ namespace Tjuvochpolisfinal
             Console.Write("News Feed ============================");
         }
        public static void DrawPrisonBorder(int prisonWidth, int prisonHeight, int startY, int startX)
-        {
+       {
             for (int y = 0; y < prisonHeight; y++)
             {
                 for (int x = 0; x < prisonWidth; x++)
@@ -45,7 +45,7 @@ namespace Tjuvochpolisfinal
 
             Console.SetCursorPosition(startX, startY);
             Console.Write("Prison");
-        }
+       }
         
         internal List<string> newsFeed = new List<string>();
 
@@ -71,19 +71,17 @@ namespace Tjuvochpolisfinal
                 Console.SetCursorPosition(0, startLine + i);
                 Console.Write($"{recent[i]}");
             }
-
         }
 
         internal static void DrawStatus(List<Person> people, int width, int height)
         {
             int policeCount = people.Count(person => person is Police);
             int thiefCount = people.Count(person => person is Thief && person.Symbol == 'T');
+
             int prisonerCount = people.Count(person => person is Thief && person.Symbol == 'F');
             int citizenCount = people.Count(person => person is Citizen);
 
             int robbedCitizens = people.OfType<Citizen>().Count(citizen => citizen.Inventory.Items.Count < 4);
-
-
 
 
             Console.SetCursorPosition(60, 25);

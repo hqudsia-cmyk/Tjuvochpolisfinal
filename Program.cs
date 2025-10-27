@@ -7,13 +7,10 @@ namespace Tjuvochpolisfinal
     {
         static void Main(string[] args)
         {
-
             List<string> newsFeed = new List<string>();
-
 
             Console.SetBufferSize(120, 50);
             Console.SetWindowSize(120, 50);
-
 
             int width = 100;
             int height = 25;
@@ -22,8 +19,8 @@ namespace Tjuvochpolisfinal
             int prisonHeight = 15;
             int startY = height - 15;
             int startX = width + 1;
-            Draw.DrawBorder(width, height);
 
+            Draw.DrawBorder(width, height);
             Draw.DrawPrisonBorder(prisonWidth, prisonHeight, startY, startX);
 
             List<Person> people = PeopleFactory.CreatePeople(width, height);
@@ -32,20 +29,14 @@ namespace Tjuvochpolisfinal
                 Display.DrawPerson(person);
 
 
-
             // Rita första gången 
             foreach (var person in people)
             {
-                //  Console.SetCursorPosition(person.Position.X, person.Position.Y);
                 Display.DrawPerson(person);
-
-                // Console.Write(person.Symbol);
             }
 
             int stepCounter = 0;
             int stepsBeforeChange = 5;
-
-
 
             // Huvudloop
             bool running = true;
@@ -124,11 +115,8 @@ namespace Tjuvochpolisfinal
                 // Rita nya positioner
                 foreach (var person in people)
                 {
-                    // Console.SetCursorPosition(person.Position.X, person.Position.Y);
-                    // Console.Write(person.Symbol);
-
+                    
                     Display.DrawPerson(person);
-
                 }
 
                 Draw.DrawNews(newsFeed, width, height);
