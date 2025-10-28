@@ -5,6 +5,8 @@ namespace Tjuvochpolisfinal
 {
     internal class Program
     {
+        static int thiefCounter = 1;
+        static Random rand = new Random();
         static void Main(string[] args)
         {
             List<string> newsFeed = new List<string>();
@@ -131,6 +133,18 @@ namespace Tjuvochpolisfinal
 
                     Display.DisplayResult(people, newsFeed);
                     break;
+                }
+                else if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.T)
+                {
+                    // Lägg till en ny tjuv
+                    var newThief = new Thief("Tjuv" + thiefCounter++,
+                        new Position(rand.Next(1, width - 1), rand.Next(1, height - 1)));
+                    people.Add(newThief);
+
+                    newsFeed.Add("En ny tjuv har dykt upp i staden!");
+
+                    if (newsFeed.Count > 10)
+                        newsFeed.RemoveAt(0);
                 }
             }
         }
