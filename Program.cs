@@ -13,6 +13,7 @@ namespace Tjuvochpolisfinal
 
             Console.SetBufferSize(120, 50);
             Console.SetWindowSize(120, 50);
+           
 
             int width = 100;
             int height = 25;

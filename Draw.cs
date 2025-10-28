@@ -28,7 +28,7 @@ namespace Tjuvochpolisfinal
 
             Console.SetCursorPosition(0, 25);
             Console.Write("News Feed ============================");
-        }
+      }
        internal static void DrawPrisonBorder(int prisonWidth, int prisonHeight, int startY, int startX)
        {
             for (int y = 0; y < prisonHeight; y++)
@@ -84,22 +84,27 @@ namespace Tjuvochpolisfinal
             int robbedCitizens = people.OfType<Citizen>().Count(citizen => citizen.Inventory.Items.Count < 4);
 
 
-            Console.SetCursorPosition(60, 25);
+            Console.SetCursorPosition(50, 25);
             Console.WriteLine("== Status == ");
-            Console.SetCursorPosition(60, 26);
+            Console.SetCursorPosition(50, 26);
             Console.Write($"Poliser: {policeCount}");
 
-            Console.SetCursorPosition(60, 27);
+            Console.SetCursorPosition(50, 27);
             Console.Write($"Tjuvar: {thiefCount}");
 
-            Console.SetCursorPosition(60, 28);
+            Console.SetCursorPosition(50, 28);
             Console.Write($"Fångar: {prisonerCount}");
 
-            Console.SetCursorPosition(60, 29);
+            Console.SetCursorPosition(50, 29);
             Console.Write($"Medborgare: {citizenCount}");
 
-            Console.SetCursorPosition(60, 30);
+            Console.SetCursorPosition(50, 30);
             Console.Write($"Antal rånade Medborgare: {robbedCitizens}");
+
+            Console.SetCursorPosition(70, 25);
+            Console.Write("** Esc - Avsluta **");
+            Console.SetCursorPosition(70, 26);
+            Console.Write("** 'T' - öka antalet tjuvar **");
         }
 
     }
