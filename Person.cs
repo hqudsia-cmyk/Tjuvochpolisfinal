@@ -12,7 +12,6 @@ namespace Tjuvochpolisfinal
         internal int Y { get; set; }
         internal Position(int x, int y) { X = x; Y = y; }
     }
-
     internal struct Direction
     {
         internal int X { get; set; }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tjuvochpolisfinal
 {
@@ -26,7 +24,7 @@ namespace Tjuvochpolisfinal
             Console.Write($"Medborgare: {citizenCount}");
             Console.Write($"Antal rånade Medborgare: {robbedCitizens}");
 
-            Console.WriteLine("Personer, Status och Inventory");
+            Console.WriteLine("\nPersoner, Status och Inventory");
 
             int personIndex = 0;
             foreach (var person in people)
@@ -35,8 +33,7 @@ namespace Tjuvochpolisfinal
                 {
                     Police => "Polis",
                     Thief => person.Symbol == 'F' ? "Fånge" : "Tjuv",
-                    Citizen => "Medborgare",
-
+                    Citizen => "Medborgare"
                 };
 
                 Console.WriteLine($"Person {personIndex++}: {type} - {person.Name}");
@@ -53,9 +50,7 @@ namespace Tjuvochpolisfinal
             {
                 int i = 1;
                 foreach (var news in newsFeed)
-                {
                     Console.WriteLine($"{i++}. {news}");
-                }
             }
 
             Console.WriteLine("\nTryck på valfri tangent för att avsluta...");
@@ -65,28 +60,20 @@ namespace Tjuvochpolisfinal
         internal static void ClearCityArea(int width, int height)
         {
             for (int y = 1; y < height - 1; y++)
-            {
                 for (int x = 1; x < width - 1; x++)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.Write(" ");
-                }
-            }
+                    SafeConsole.WriteChar(x, y, ' ');
         }
 
         internal static void RedrawPeople(List<Person> people)
         {
             foreach (var p in people)
-            {
                 DrawPerson(p);
-            }
         }
 
         internal static void DrawPerson(Person person)
         {
-            Console.SetCursorPosition(person.Position.X, person.Position.Y);
+            SafeConsole.SetCursor(person.Position.X, person.Position.Y);
 
-            // Färger på people
             switch (person)
             {
                 case Police:
@@ -107,6 +94,4 @@ namespace Tjuvochpolisfinal
             Console.ResetColor();
         }
     }
-} 
-    
-
+}

@@ -9,6 +9,9 @@ namespace Tjuvochpolisfinal
         static Random rand = new Random();
         static void Main(string[] args)
         {
+            int lastWindowWidth = Console.WindowWidth;
+            int lastWindowHeight = Console.WindowHeight;
+
             List<string> newsFeed = new List<string>();
 
             Console.SetBufferSize(120, 50);
@@ -39,17 +42,35 @@ namespace Tjuvochpolisfinal
             }
 
             int stepCounter = 0;
-            int stepsBeforeChange = 5;
+            int stepsBeforeChange = 1;
 
             // Huvudloop
             bool running = true;
 
             while (running)
             {
+                // Kolla om konsoll fönstret ändrats i storlek
+                if (Console.WindowWidth != lastWindowWidth || Console.WindowHeight != lastWindowHeight)
+                {
+                    lastWindowWidth = Console.WindowWidth;
+                    lastWindowHeight = Console.WindowHeight;
+
+                    Console.Clear();
+
+                    // Beräkna nytt size baserat på aktuell fönsterstorlek
+                    width = Math.Min(Console.WindowWidth, 100);
+                    height = Math.Min(Console.WindowHeight - 15, 25); // 15 rader för news + status
+
+                    // Rita om allt
+                    Draw.DrawBorder(width, height);
+                    Draw.DrawPrisonBorder(prisonWidth, prisonHeight, startY, startX);
+                    Display.RedrawPeople(people);
+                }
+
                 //  Radera gamla positioner
                 foreach (var person in people)
                 {
-                    Console.SetCursorPosition(person.Position.X, person.Position.Y);
+                   SafeConsole.SetCursor(person.Position.X, person.Position.Y);
                     Console.Write(" ");
                 }
 
@@ -98,7 +119,6 @@ namespace Tjuvochpolisfinal
                     }
                 }
 
-
                 foreach (var police in people.OfType<Police>())
                 {
                     foreach (var citizen in people.OfType<Citizen>())
@@ -127,25 +147,31 @@ namespace Tjuvochpolisfinal
 
                 Thread.Sleep(500);
 
-                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
+                if (Console.KeyAvailable)
                 {
-                    running = false;
-                    Console.Clear();
+                    var key = Console.ReadKey(true).Key;
+                    if (key == ConsoleKey.Escape)
+                    {
+                        running = false;
+                        Console.Clear();
 
-                    Display.DisplayResult(people, newsFeed);
-                    break;
-                }
-                else if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.T)
-                {
-                    // Lägg till en ny tjuv
-                    var newThief = new Thief("Tjuv" + thiefCounter++,
-                        new Position(rand.Next(1, width - 1), rand.Next(1, height - 1)));
-                    people.Add(newThief);
+                        Display.DisplayResult(people, newsFeed);
+                        break;
+                    }
 
-                    newsFeed.Add("En ny tjuv har dykt upp i staden!");
+                    if (key == ConsoleKey.T)
+                    {
+                        // Lägg till en ny tjuv
+                        var newThief = new Thief("Tjuv" + thiefCounter++,
+                            new Position(rand.Next(1, width - 1), rand.Next(1, height - 1)));
+                        people.Add(newThief);
 
-                    if (newsFeed.Count > 10)
-                        newsFeed.RemoveAt(0);
+                        newsFeed.Add("En ny tjuv har dykt upp i staden!");
+
+                        if (newsFeed.Count > 10)
+                            newsFeed.RemoveAt(0);
+                    }
+               
                 }
             }
         }
@@ -155,6 +181,8 @@ namespace Tjuvochpolisfinal
 
 
             
+
+
 
 
 

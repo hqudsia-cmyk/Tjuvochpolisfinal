@@ -8,105 +8,68 @@ namespace Tjuvochpolisfinal
 {
     internal class Draw
     {
-      // Rita upp staden
-      internal static void DrawBorder(int width, int height)
-      {
+        // Rita upp staden
+        internal static void DrawBorder(int width, int height)
+        {
             Console.Clear();
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (y == 0 || y == height - 1 || x == 0 || x == width - 1)
-                        Console.Write("#");
-                    else
-                        Console.Write(" ");
+                    char c = (y == 0 || y == height - 1 || x == 0 || x == width - 1) ? '#' : ' ';
+                    SafeConsole.WriteChar(x, y, c);
                 }
-                Console.WriteLine();
             }
-            Console.SetCursorPosition(2, 0);
-            Console.Write("City");
 
-            Console.SetCursorPosition(0, 25);
-            Console.Write("News Feed ============================");
-      }
-       internal static void DrawPrisonBorder(int prisonWidth, int prisonHeight, int startY, int startX)
-       {
+            SafeConsole.WriteAt(2, 0, "City");
+            SafeConsole.WriteAt(0, 25, "News Feed ============================");
+        }
+
+        internal static void DrawPrisonBorder(int prisonWidth, int prisonHeight, int startY, int startX)
+        {
             for (int y = 0; y < prisonHeight; y++)
             {
                 for (int x = 0; x < prisonWidth; x++)
                 {
-                    Console.SetCursorPosition(startX + x, y + startY);
-                    if (y == 0 || y == prisonHeight - 1 || x == 0 || x == prisonWidth - 1)
-                        Console.Write("#");
-                    else
-                        Console.Write(" ");
+                    char c = (y == 0 || y == prisonHeight - 1 || x == 0 || x == prisonWidth - 1) ? '#' : ' ';
+                    SafeConsole.WriteChar(startX + x, startY + y, c);
                 }
             }
 
-            Console.SetCursorPosition(startX, startY);
-            Console.Write("Prison");
-       }
-        
-        internal List<string> newsFeed = new List<string>();
+            SafeConsole.WriteAt(startX, startY, "Prison");
+        }
 
         internal static void DrawNews(List<string> newsFeed, int width, int height)
         {
             int startLine = height + 1;
-
             int maxLines = 10;
 
-            // bara de senaste 10 nyheterna
             var recent = newsFeed.TakeLast(maxLines).ToList();
 
-            // Rensa område
             for (int i = 0; i < maxLines; i++)
-            {
-                Console.SetCursorPosition(0, startLine + i);
-                Console.Write(new string(' ', width));
-            }
+                SafeConsole.WriteAt(0, startLine + i, new string(' ', width));
 
-            // Rita upp
             for (int i = 0; i < recent.Count; i++)
-            {
-                Console.SetCursorPosition(0, startLine + i);
-                Console.Write($"{recent[i]}");
-            }
+                SafeConsole.WriteAt(0, startLine + i, recent[i]);
         }
 
         internal static void DrawStatus(List<Person> people, int width, int height)
         {
             int policeCount = people.Count(person => person is Police);
             int thiefCount = people.Count(person => person is Thief && person.Symbol == 'T');
-
             int prisonerCount = people.Count(person => person is Thief && person.Symbol == 'F');
             int citizenCount = people.Count(person => person is Citizen);
-
             int robbedCitizens = people.OfType<Citizen>().Count(citizen => citizen.Inventory.Items.Count < 4);
 
+            SafeConsole.WriteAt(50, 25, "== Status ==");
+            SafeConsole.WriteAt(50, 26, $"Poliser: {policeCount}");
+            SafeConsole.WriteAt(50, 27, $"Tjuvar: {thiefCount}");
+            SafeConsole.WriteAt(50, 28, $"Fångar: {prisonerCount}");
+            SafeConsole.WriteAt(50, 29, $"Medborgare: {citizenCount}");
+            SafeConsole.WriteAt(50, 30, $"Antal rånade Medborgare: {robbedCitizens}");
 
-            Console.SetCursorPosition(50, 25);
-            Console.WriteLine("== Status == ");
-            Console.SetCursorPosition(50, 26);
-            Console.Write($"Poliser: {policeCount}");
-
-            Console.SetCursorPosition(50, 27);
-            Console.Write($"Tjuvar: {thiefCount}");
-
-            Console.SetCursorPosition(50, 28);
-            Console.Write($"Fångar: {prisonerCount}");
-
-            Console.SetCursorPosition(50, 29);
-            Console.Write($"Medborgare: {citizenCount}");
-
-            Console.SetCursorPosition(50, 30);
-            Console.Write($"Antal rånade Medborgare: {robbedCitizens}");
-
-            Console.SetCursorPosition(70, 25);
-            Console.Write("** Esc - Avsluta **");
-            Console.SetCursorPosition(70, 26);
-            Console.Write("** 'T' - öka antalet tjuvar **");
+            SafeConsole.WriteAt(70, 25, "** Esc - Avsluta **");
+            SafeConsole.WriteAt(70, 26, "** 'T' - öka antalet tjuvar **");
         }
-
     }
-
 }
